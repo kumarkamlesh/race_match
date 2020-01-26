@@ -9,6 +9,9 @@ def index(request):
     player = Player.objects.all().order_by('-id')
     current_standing = WinnerPlayer.objects.values('winner__players').annotate(
         winner_count=Count('winner')).order_by('-winner_count')[:5]
+    maxi = None
+    if len(current_standing):
+        maxi = current_standing[0]
 
     if request.method == 'POST':
         player_name_a = request.POST['p1']
@@ -21,7 +24,7 @@ def index(request):
         )
         messages.success(request, 'Winner Added Successfully')
         return redirect('race:index')
-    return render(request, 'event/index.html', {'player': player, 'st': current_standing})
+    return render(request, 'event/index.html', {'player': player, 'st': current_standing, 'maxi':maxi})
 
 
 def winner_list(request):
