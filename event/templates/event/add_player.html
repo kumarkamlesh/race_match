@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Add Players!</title>
+    <link rel="stylesheet" href="{% static 'event/style.css' %}">
+    <style>
+        #size{
+        width: 50%;
+        text-align:center;
+        }
+        body{
+        background-color: #d3d3d3;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <form method="post" action="{% url 'race:add_players' %}">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br>
+        <input type="text" id="size" name="add_player" placeholder="Enter player name">
+        <br><br>
+        <input type="submit" value="Add"> &nbsp;&nbsp;<a href="{% url 'race:index' %}">Back to home!!</a>
+
+
+    </form>
+</div>
+</body>
+</html>

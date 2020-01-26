@@ -1,0 +1,45 @@
+{% load static %}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'event/style.css' %}">
+
+    <title> Race Event </title>
+
+</head>
+<body>
+
+<!--showing result here-->
+<main role="main" class="container">
+    <h2>Total Races List <small>&nbsp;&nbsp;<a href="{% url 'race:index' %}">Click here to home!!</a></small></h2>
+    <div class="media-body" align="center">
+        <table border="1" style="text-align:center;">
+            <tr>
+                <th>S.No</th>
+                <th>Player A</th>
+                <th>Player B</th>
+                <th>Winner</th>
+            </tr>
+            {% for all in winner%}
+            <tr>
+                <td>
+                    {{forloop.counter}}
+                </td>
+                <td>
+                    {{all.player_a}}
+                </td>
+                <td>
+                    {{all.player_b}}
+                </td>
+                <td>
+                    <b>{{all.winner}}</b>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'event/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <title>Race Event</title>
+</head>
+<body>
+
+<h2> Race Event!</h2>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+<div class="container" id="container">
+
+    <div class="form-container sign-up-container">
+
+        <h1 style="text-align:center;">Add Winner!</h1>
+        <form action="{% url 'race:index' %}" method="post">
+            {% csrf_token %}
+            <a href="{% url 'race:add_players' %}">Add More Player!!</a>
+
+            <span>Player A</span>
+            <select name="p1" id="p1" required>
+                <option value="" selected disabled hidden>-- select one -- </option>
+                {% for data in player %}
+                <option value={{data.id}}>{{data.players}}</option>
+                {% endfor %}
+            </select>
+            <span>Player B</span>
+
+            <select name="p2" id="p2" required>
+                <option value="" selected disabled hidden>-- select one -- </option>
+                {% for data in player %}
+                <option value={{data.id}}>{{data.players}}</option>
+                {% endfor %}
+            </select>
+            <span>Winner</span>
+            <select name="winner" id="winner" required>
+                <option value="" selected disabled hidden>-- select one -- </option>
+                <option id='pl1' value="">Player1 </option>
+                <option id='pl2' value="">Player2 </option>
+            </select>
+            <button type="submit">
+                Submit
+            </button>
+
+        </form>
+    </div>
+
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h4>Top 5 Player</h4>
+            <table border="1">
+                <tr>
+                    <th>Player Name</th>
+                    <th>Match Win</th>
+                </tr>
+                {% for data in st %}
+                <tr>
+                    <td>{{data.winner__players}}</td>
+                    <td>{{data.winner_count}}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+            <br>
+            <button>
+                <a style="color:white;" href="{% url 'race:winner' %}">View Races
+                </a>
+            </button>
+
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>Click here to See the Race Results.</p>
+                <button class="ghost" id="signIn">View Result</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Choose Winner!!</p>
+                <button class="ghost" id="signUp">Add Winner</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="{% static 'event/main.js' %}"></script>
+
+
+</html>

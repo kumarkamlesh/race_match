@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Admin Panel!!</title>
+
+</head>
+<body>
+<div class="form-container sign-in-container">
+        <form action="#">
+            {% csrf_token %}
+            <span>Player 1</span>
+            <select>
+            {% for data in player %}
+                <option value={{data.players}}>{{data.players}}</option>
+            {% endfor %}
+            </select>
+            <span>Player 2</span>
+            <select>
+            {% for data in player %}
+                <option value={{data.players}}>{{data.players}}</option>
+            {% endfor %}
+            </select>
+            <span>Winner</span>
+            <select>
+            {% for data in player %}
+                <option value={{data.players}}>{{data.players}}</option>
+                <option value='tie'>Tie</option>
+            {% endfor %}
+            </select>
+            <button>
+                <a style="color:white;" href="{% url 'race:winner' %}">View more
+                </a>
+            </button>
+
+        </form>
+    </div>
+</body>
+</html>
